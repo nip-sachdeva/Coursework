@@ -1,0 +1,133 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+```{r}
+knitr::opts_chunk$set(echo = TRUE)
+default_width <- 80
+options(width = default_width)
+#setwd("~/Desktop/r-novice-inflammation/")
+setwd("T:/Uni Of Bristol/TB1/SCEM/github/Coursework/")
+
+```
+
+```{r}
+library(tidyverse)
+library(dplyr)
+library(dbplyr)
+```
+
+
+```{r}
+calcofi_data_original<-read.csv("section_A/194903-201911_Bottle.csv")
+#problems 
+#spec(raw_data_struct)
+calcofi_data_original
+
+rows <- nrow(calcofi_data_original) 
+columns <- ncol(calcofi_data_original)
+cat("Number of Rows: ",rows)
+cat("Number of Columns: ",columns)
+#problems(raw_data_struct)
+
+```
+
+
+```{r}
+calcofi_data <- calcofi_data_original %>% select(Depth_ID,Depthm, T_degC,Salnty, Oxy_µmol.Kg, ChlorA )
+calcofi_data
+```
+
+
+```{r}
+rows <- nrow(calcofi_data) 
+columns <- ncol(calcofi_data)
+cat("Number of Rows: ",rows)
+cat("Number of Columns: ",columns)
+
+```
+
+
+```{r}
+head(calcofi_data,5)
+```
+
+
+```{r}
+#get_year <- calcofi_data%>% select(Depth_ID)
+#get_year
+get_year <- function(){
+  Depth_ID_Values <- calcofi_data%>% select(Depth_ID)
+  Depth_ID_Values
+  element <- Depth_ID_Values[1,"Depth_ID"]
+  element
+  element <- str_replace_all(element,"-","")
+  element
+  year_val <- substr(element,1,4)
+  year_val
+  year_value <- cat("Year Value:", year_val)
+  
+  # return(year_value)
+  
+}
+get_year()
+```
+
+
+```{r}
+#class(get_year)
+# #typeof(get_year)
+# elements<-get_year[1,"Depth_ID"]
+# #elements
+# #typeof(elements)
+# #element_list <- strsplit(elements,"-")
+# first_element<-str_replace_all(elements,"-","")
+# date<- substr(first_element,1,4)
+# cat("date :", date)
+```
+
+
+```{r}
+
+get_cast_type <- calcofi_data%>% select(Depth_ID)
+get_cast_type
+element <- get_cast_type[1,"Depth_ID"]
+element
+#element_list <- strsplit(elements,"-")
+year_val <- str_replace_all(elements,"-","")
+year_val <- substr(year_val,1,4)
+cat("date :", year_val)
+
+```
+
+
+```{r}
+elements <- get_year[1,"Depth_ID"]
+elements
+typeof(elements)
+cast_type <- str_replace_all(elements,"-","")
+cast_type <- substr(cast_type,9,10)
+cat("Cast Type :", cast_type)
+
+
+```
+
+
+```{r}
+colnames(calcofi_data)
+```
+
+
+```{r}
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
